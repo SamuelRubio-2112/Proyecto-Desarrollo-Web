@@ -4,22 +4,27 @@
     <meta charset="UTF-8">
     <title>Catálogo y Carrito - Papel y Luna</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- CSS externo -->
     <link rel="stylesheet" href="css/estilos_catalogo.css">
 </head>
 <body>
 
     <header>
-        <h1>Papelería Papel y Luna </h1>
+        <h1>Papelería Papel y Luna</h1>
+        <button id="btn-abrir-carrito">🛒 Carrito</button>
     </header>
 
+    <!-- Fondo oscuro al abrir carrito -->
+    <div id="overlay-carrito"></div>
+
     <main>
+
+        <!-- Búsqueda -->
         <section id="busqueda">
             <input 
                 type="text" 
                 id="input-busqueda" 
                 placeholder="Buscar producto..."
+                autocomplete="off"
             >
         </section>
 
@@ -27,26 +32,53 @@
         <section>
             <h2>Catálogo de productos</h2>
             <div id="catalogo">
-                <!-- Aquí JavaScript va a insertar las tarjetas -->
-            </div>
-        </section>
-
-        <!-- Carrito -->
-        <section>
-            <h2>Carrito de compras</h2>
-            <div id="carrito">
-                <p>El carrito está vacío</p>
-                <!-- JavaScript reemplazará esto -->
-            </div>
-
-            <div id="total">
-                <strong>Total: $0</strong>
+                <!-- JavaScript inserta las tarjetas aquí -->
             </div>
         </section>
 
     </main>
 
-    <!-- JavaScript externo -->
+    <!-- Panel lateral del carrito -->
+    <div id="carrito-panel">
+
+        <div class="carrito-header">
+            <h2>Carrito de compras</h2>
+            <button id="btn-cerrar-carrito">✕</button>
+        </div>
+
+        <div id="carrito">
+            <p>El carrito está vacío</p>
+        </div>
+
+        <div id="total">
+            <strong>Total: $0</strong>
+        </div>
+
+    </div>
+
     <script src="app.js"></script>
+
+    <!-- Lógica del panel (abrir/cerrar) -->
+    <script>
+        const overlay   = document.getElementById('overlay-carrito');
+        const panel     = document.getElementById('carrito-panel');
+        const btnAbrir  = document.getElementById('btn-abrir-carrito');
+        const btnCerrar = document.getElementById('btn-cerrar-carrito');
+
+        function abrirCarrito() {
+            panel.classList.add('abierto');
+            overlay.classList.add('abierto');
+        }
+
+        function cerrarCarrito() {
+            panel.classList.remove('abierto');
+            overlay.classList.remove('abierto');
+        }
+
+        btnAbrir.addEventListener('click', abrirCarrito);
+        btnCerrar.addEventListener('click', cerrarCarrito);
+        overlay.addEventListener('click', cerrarCarrito);
+    </script>
+
 </body>
 </html>
