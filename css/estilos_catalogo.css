@@ -27,9 +27,7 @@ body {
   min-height: 100vh;
 }
 
-/* ══════════════════════════════════════
-   HEADER
-══════════════════════════════════════ */
+/* HEADER */
 header {
   background: var(--verde);
   color: #fff;
