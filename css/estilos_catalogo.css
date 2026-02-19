@@ -1,7 +1,3 @@
-/* ======================================
-   PAPEL Y LUNA — Estilos Catálogo
-   ====================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
 :root {
@@ -15,7 +11,7 @@
   --rojo:        #E63946;
   --radio:       12px;
   --font:        'DM Sans', sans-serif;
-  --sidebar-w:   360px;
+  --sidebar-w:   380px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,7 +42,7 @@ header h1 {
   font-weight: 700;
 }
 
-/* Botón carrito en el header (añadido por JS) */
+/* Botón carrito en el header */
 #btn-abrir-carrito {
   background: #fff;
   color: var(--verde);
@@ -62,9 +58,7 @@ header h1 {
 
 #btn-abrir-carrito:hover { opacity: 0.85; }
 
-/* ══════════════════════════════════════
-   MAIN
-══════════════════════════════════════ */
+/* MAIN */
 main {
   padding: 1.5rem 2rem;
   max-width: 1100px;
@@ -74,9 +68,7 @@ main {
   gap: 1.5rem;
 }
 
-/* ══════════════════════════════════════
-   BÚSQUEDA
-══════════════════════════════════════ */
+/* BÚSQUEDA */
 #busqueda {
   display: flex;
 }
@@ -103,9 +95,7 @@ main {
 
 #input-busqueda::placeholder { color: var(--suave); }
 
-/* ══════════════════════════════════════
-   SECCIÓN — TÍTULO H2
-══════════════════════════════════════ */
+/* SECCIÓN – TÍTULO H2 */
 section h2 {
   font-size: 0.9rem;
   font-weight: 600;
@@ -115,9 +105,7 @@ section h2 {
   margin-bottom: 1rem;
 }
 
-/* ══════════════════════════════════════
-   CATÁLOGO
-══════════════════════════════════════ */
+/* CATÁLOGO */
 #catalogo {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -187,9 +175,7 @@ section h2 {
 
 .producto button:hover { background: #1B4332; }
 
-/* ══════════════════════════════════════
-   CARRITO — PANEL LATERAL
-══════════════════════════════════════ */
+/* CARRITO – PANEL LATERAL */
 
 /* Fondo oscuro */
 #overlay-carrito {
@@ -202,7 +188,7 @@ section h2 {
 
 #overlay-carrito.abierto { display: block; }
 
-/* El <section> del carrito se convierte en panel lateral */
+/* Panel lateral */
 #carrito-panel {
   position: fixed;
   top: 0;
@@ -210,7 +196,7 @@ section h2 {
   height: 100vh;
   width: var(--sidebar-w);
   max-width: 95vw;
-  background: var(--blanco);
+  background: var(--bg);
   box-shadow: -4px 0 24px rgba(0,0,0,0.12);
   z-index: 400;
   display: flex;
@@ -225,6 +211,7 @@ section h2 {
 .carrito-header {
   padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--borde);
+  background: var(--blanco);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -256,28 +243,187 @@ section h2 {
 #carrito {
   flex: 1;
   overflow-y: auto;
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
 /* Mensaje vacío */
-#carrito p {
+#carrito > p {
   color: var(--suave);
   font-size: 0.9rem;
   text-align: center;
   margin-top: 2rem;
 }
 
-/* Total */
+/* ITEM CARRITO – Tarjeta estilo imagen */
+.item-carrito {
+  background: var(--blanco);
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Fila superior: imagen + info */
+.item-carrito .item-top {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.item-carrito img {
+  width: 72px;
+  height: 72px;
+  min-width: 72px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: var(--bg);
+  padding: 0.4rem;
+  border: 1px solid var(--borde);
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-nombre {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--texto);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-desc {
+  font-size: 0.75rem;
+  color: var(--suave);
+  margin-top: 0.15rem;
+}
+
+/* Fila inferior: controles + precio */
+.item-carrito .item-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+/* Controles de cantidad */
+.item-controles {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #F0F0EC;
+  border-radius: 50px;
+  padding: 0.25rem 0.5rem;
+}
+
+.btn-cantidad {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+  font-family: var(--font);
+}
+
+/* Botón − */
+.btn-cantidad[data-cambio="-1"] {
+  background: #E5E7EB;
+  color: var(--texto);
+}
+.btn-cantidad[data-cambio="-1"]:hover {
+  background: #D1D5DB;
+}
+
+/* Botón + */
+.btn-cantidad[data-cambio="1"] {
+  background: var(--verde);
+  color: #fff;
+}
+.btn-cantidad[data-cambio="1"]:hover {
+  background: #1B4332;
+}
+
+.item-cantidad {
+  font-size: 0.95rem;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+  color: var(--texto);
+}
+
+/* Precio derecho */
+.item-precios {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+}
+
+.item-precio {
+  font-size: 0.75rem;
+  color: var(--suave);
+}
+
+.item-subtotal {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--texto);
+}
+
+/* Botón eliminar */
+.btn-eliminar {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--suave);
+  padding: 4px;
+  font-size: 1rem;
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-eliminar:hover { color: var(--rojo); }
+
+/* Icono de basura SVG dentro del botón eliminar */
+.btn-eliminar svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/*TOTAL*/
 #total {
   border-top: 1px solid var(--borde);
   padding: 1.25rem 1.5rem;
   font-size: 1rem;
   font-weight: 700;
+  background: var(--blanco);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
 
 /* Scrollbar discreta */
 ::-webkit-scrollbar { width: 4px; }
