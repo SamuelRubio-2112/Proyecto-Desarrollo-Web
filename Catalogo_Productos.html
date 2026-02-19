@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo y Carrito - Papel y Luna</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="css/estilos_catalogo.css">
+</head>
+<body>
+
+    <header>
+        <h1>Papelería Papel y Luna </h1>
+    </header>
+
+    <main>
+        <section id="busqueda">
+            <input 
+                type="text" 
+                id="input-busqueda" 
+                placeholder="Buscar producto..."
+            >
+        </section>
+
+        <!-- Catálogo -->
+        <section>
+            <h2>Catálogo de productos</h2>
+            <div id="catalogo">
+                <!-- Aquí JavaScript va a insertar las tarjetas -->
+            </div>
+        </section>
+
+        <!-- Carrito -->
+        <section>
+            <h2>Carrito de compras</h2>
+            <div id="carrito">
+                <p>El carrito está vacío</p>
+                <!-- JavaScript reemplazará esto -->
+            </div>
+
+            <div id="total">
+                <strong>Total: $0</strong>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript externo -->
+    <script src="app.js"></script>
+</body>
+</html>
