@@ -63,3 +63,109 @@ function agregarAlCarrito(id) {
 
     renderizarCarrito();
 }
+
+// CAMBIAR CANTIDAD
+function cambiarCantidad(id, cambio) {
+    const item = carrito.find(item => item.id === id);
+    if (!item) return;
+
+    item.cantidad += cambio;
+
+    // Si llega a 0, lo elimina
+    if (item.cantidad <= 0) {
+        eliminarDelCarrito(id);
+        return;
+    }
+
+    renderizarCarrito();
+}
+// ELIMINAR DEL CARRITO
+// ════════════════════════════════════════════════════
+function eliminarDelCarrito(id) {
+    carrito = carrito.filter(item => item.id !== id);
+    renderizarCarrito();
+}
+
+// RENDERIZAR CARRITO
+// ════════════════════════════════════════════════════
+function renderizarCarrito() {
+    // Carrito vacío
+    if (carrito.length === 0) {
+        carritoContenedor.innerHTML = `<p>El carrito está vacío</p>`;
+        totalContenedor.innerHTML   = `<strong>Total: $0</strong>`;
+        actualizarBadge();
+        return;
+    }
+
+    // Construir lista de items
+    carritoContenedor.innerHTML = "";
+
+    carrito.forEach(item => {
+        const subtotal = item.precio * item.cantidad;
+
+        const div = document.createElement("div");
+        div.classList.add("item-carrito");
+
+        div.innerHTML = `
+            <img src="${item.imagen}" alt="${item.nombre}">
+            <div class="item-info">
+                <p class="item-nombre">${item.nombre}</p>
+                <p class="item-precio">$${item.precio} c/u</p>
+            </div>
+            <div class="item-controles">
+                <button class="btn-cantidad" data-id="${item.id}" data-cambio="-1">−</button>
+                <span class="item-cantidad">${item.cantidad}</span>
+                <button class="btn-cantidad" data-id="${item.id}" data-cambio="1">+</button>
+            </div>
+            <span class="item-subtotal">$${subtotal}</span>
+            <button class="btn-eliminar" data-id="${item.id}" title="Eliminar">✕</button>
+        `;
+
+        carritoContenedor.appendChild(div);
+    });
+
+    // Calcular total
+    const total = carrito.reduce((suma, item) => suma + item.precio * item.cantidad, 0);
+    totalContenedor.innerHTML = `<strong>Total: $${total}</strong>`;
+
+    actualizarBadge();
+}
+// BADGE DEL BOTÓN CARRITO (contador de items)
+
+function actualizarBadge() {
+    const btn = document.getElementById("btn-abrir-carrito");
+    if (!btn) return;
+
+    const totalItems = carrito.reduce((suma, item) => suma + item.cantidad, 0);
+    btn.textContent = totalItems > 0 ? `🛒 Carrito (${totalItems})` : `🛒 Carrito`;
+}
+// EVENTOS — delegación en el catálogo y en el carrito
+// Clic en "Agregar al carrito"
+catalogo.addEventListener("click", function(e) {
+    const btn = e.target.closest("button[data-id]");
+    if (!btn) return;
+    agregarAlCarrito(Number(btn.dataset.id));
+});
+// Clic en +, − y ✕ dentro del carrito
+carritoContenedor.addEventListener("click", function(e) {
+    // Botones de cantidad
+    const btnCantidad = e.target.closest(".btn-cantidad");
+    if (btnCantidad) {
+        cambiarCantidad(Number(btnCantidad.dataset.id), Number(btnCantidad.dataset.cambio));
+        return;
+    }
+
+    // Botón eliminar
+    const btnEliminar = e.target.closest(".btn-eliminar");
+    if (btnEliminar) {
+        eliminarDelCarrito(Number(btnEliminar.dataset.id));
+    }
+});
+// ════════════════════════════════════════════════════
+// BÚSQUEDA
+// ════════════════════════════════════════════════════
+inputBusqueda.addEventListener("input", function() {
+    const texto = this.value.toLowerCase().trim();
+    const filtrados = productos.filter(p => p.nombre.toLowerCase().includes(texto));
+    renderizarCatalogo(filtrados);
+});
