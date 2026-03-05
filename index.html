@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktail Bar — Explorador de Cócteles</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-icon">🍹</span>
+                <span class="logo-text">Cocktail <em>Bar</em></span>
+            </div>
+            <p class="header-sub">Explorador de recetas de cócteles</p>
+        </div>
+    </header>
+
+    <main>
+        <div class="layout">
+
+            <!-- COLUMNA PRINCIPAL: Detalle del cóctel -->
+            <section class="col-main">
+
+                <!-- Controles superiores -->
+                <div class="controls">
+                    <button id="btn-aleatorio" class="btn-primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>
+                        Cóctel aleatorio
+                    </button>
+                </div>
+
+                <!-- LOADER -->
+                <div id="loader" class="loader-wrapper" hidden>
+                    <div class="spinner"></div>
+                    <p class="loader-text">Mezclando tu cóctel…</p>
+                </div>
+
+                <!-- MENSAJE DE ERROR -->
+                <div id="error-msg" class="error-card" hidden>
+                    <span class="error-icon">⚠️</span>
+                    <p id="error-texto">Ocurrió un error. Intenta de nuevo.</p>
+                    <button class="btn-primary" onclick="cargarAleatorio()">Reintentar</button>
+                </div>
+
+                <!-- DETALLE DEL CÓCTEL -->
+                <article id="detalle-coctel" class="cocktail-card" hidden>
+
+                    <div class="cocktail-hero">
+                        <img id="coctel-imagen" src="" alt="Imagen del cóctel">
+                        <div class="cocktail-meta">
+                            <span id="coctel-categoria" class="badge"></span>
+                            <h1 id="coctel-nombre"></h1>
+                            <p class="meta-id">ID: <span id="coctel-id"></span></p>
+                            <button id="btn-favorito" class="btn-fav">
+                                <svg id="fav-icon" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                <span id="fav-texto">Guardar favorito</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="cocktail-body">
+
+                        <!-- Ingredientes -->
+                        <div class="section-block">
+                            <h2 class="section-title">Ingredientes</h2>
+                            <ul id="lista-ingredientes" class="ingredientes-grid"></ul>
+                        </div>
+
+                        <!-- Instrucciones -->
+                        <div class="section-block">
+                            <h2 class="section-title">Preparación</h2>
+                            <p id="coctel-instrucciones" class="instrucciones"></p>
+                        </div>
+
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- COLUMNA LATERAL: Favoritos -->
+            <aside class="col-side">
+                <div class="favoritos-panel">
+                    <h2 class="panel-title">
+                        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                        Mis favoritos
+                    </h2>
+
+                    <!-- Estado vacío -->
+                    <div id="favoritos-vacio" class="empty-state">
+                        <span class="empty-icon">🍸</span>
+                        <p>Aún no tienes favoritos.</p>
+                        <p class="empty-sub">Guarda los cócteles que más te gusten.</p>
+                    </div>
+
+                    <!-- Lista de favoritos -->
+                    <ul id="lista-favoritos" class="favoritos-lista" hidden></ul>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Proyecto desarrollado para el reto de JavaScript Asíncrono — Desarrollo Web 2026-1</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
